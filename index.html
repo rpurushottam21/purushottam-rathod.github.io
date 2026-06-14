@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Purushottam Rathod — Automotive Cybersecurity Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:       #0a0d12;
+    --surface:  #111520;
+    --border:   #1e2535;
+    --accent:   #00e5a0;
+    --accent2:  #0066ff;
+    --text:     #e8eaf0;
+    --muted:    #6b7694;
+    --danger:   #ff4d6d;
+    --font-main: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID NOISE BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(10,13,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 2.5rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 2rem; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  h1 .name-accent { color: var(--accent); }
+  .hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-tagline strong { color: var(--text); }
+  .hero-cta {
+    display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3.5rem;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0d12;
+  }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Stats strip */
+  .hero-stats {
+    display: flex; flex-wrap: wrap; gap: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item {}
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-line {
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.02rem;
+  }
+  .about-text p strong { color: var(--text); }
+  .about-contact { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .contact-item .ci-icon { color: var(--accent); font-size: 1rem; }
+  .contact-item a { color: var(--muted); text-decoration: none; }
+  .contact-item a:hover { color: var(--accent); }
+
+  .highlight-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem;
+    border-radius: 4px;
+  }
+  .highlight-box p {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.75;
+  }
+  .highlight-box .quote-attr {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-top: 0.75rem;
+    font-style: normal;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-meta {}
+  .exp-company {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .exp-period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .exp-loc {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .exp-role {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Project tabs */
+  .project-tabs { margin-top: 1.25rem; }
+  .tab-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .tab-btn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: rgba(0,229,160,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .tab-panel ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .tab-panel li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .tab-panel li::before {
+    content: '▹';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+  .tab-panel li strong { color: var(--text); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .skill-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    padding: 0.3rem 0.65rem;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--text);
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--accent); }
+  .cert-icon {
+    width: 2.5rem; height: 2.5rem;
+    background: rgba(0,229,160,0.1);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .cert-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.25rem; }
+  .cert-org { font-size: 0.78rem; color: var(--muted); font-family: var(--font-mono); }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .edu-timeline { display: flex; flex-direction: column; gap: 0; }
+  .edu-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-year {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.2rem;
+  }
+  .edu-degree { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+  .edu-school { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .edu-score {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  /* ── ACHIEVEMENT BANNER ── */
+  .achievement-strip {
+    background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,102,255,0.06) 100%);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;
+    margin-top: 2rem;
+  }
+  .ach-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+  .ach-icon { color: var(--accent); font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem;
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+  .footer-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── TERMINAL BADGE ── */
+  .terminal-badge {
+    display: inline-flex;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .terminal-badge .tb-tag {
+    background: rgba(0,229,160,0.15);
+    color: var(--accent);
+    padding: 0.35rem 0.75rem;
+  }
+  .terminal-badge .tb-val {
+    color: var(--muted);
+    padding: 0.35rem 0.75rem;
+  }
+
+  /* Divider */
+  .sep { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 1.25rem 3rem; }
+    .section-wrap { padding: 3.5rem 1.25rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    .hero-stats { gap: 1.5rem; }
+    footer { padding: 2rem 1.25rem; }
+    .footer-links { gap: 1rem; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── CURSOR GLOW on hero ── */
+  .glow-orb {
+    position: fixed;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: left 0.3s ease, top 0.3s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-orb" id="orb"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">PR // CYBERSEC</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Automotive Cybersecurity Engineer</div>
+  <h1>Purushottam<br><span class="name-accent">Rathod</span></h1>
+  <p class="hero-tagline">
+    <strong>Most vehicles today are computers on wheels —</strong> I make sure they don't get hacked.
+    Securing vehicle ECUs through threat analysis, ISO 21434 compliance, and hardware-rooted security.
+  </p>
+  <div class="hero-cta">
+    <a href="mailto:rpurushottam21@gmail.com" class="btn btn-primary">✉ Get in Touch</a>
+    <a href="https://linkedin.com/in/purushottam-rathod21" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+    <a href="#experience" class="btn btn-outline">View Work ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">2.10</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">ECU Projects</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">50%</div>
+      <div class="stat-label">TARA Time Cut via GenAI</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4.6/5</div>
+      <div class="stat-label">Customer CSAT Score</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-label">// 01</span>
+      <h2>About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm an Automotive Cybersecurity Engineer at <strong>L&T Technology Services</strong>, specialising in
+        threat modelling, risk assessment, and compliance engineering for vehicle ECUs across automotive
+        and off-highway domains.</p>
+        <p>My background in <strong>Electrical & Electronics Engineering</strong> gives me a hardware-first security
+        perspective — a rarity in cybersecurity. I think about secure boot chains, hardware trust anchors,
+        and cryptographic accelerators not as abstract controls but as physical silicon artefacts that
+        can be attacked.</p>
+        <p>Beyond compliance work, I built a <strong>GenAI-based TARA automation framework</strong> that reduced
+        delivery time by up to 80% per project cycle — because engineering velocity matters as much as
+        engineering rigour.</p>
+
+        <div class="about-contact">
+          <div class="contact-item"><span class="ci-icon">📞</span> 7795742702</div>
+          <div class="contact-item"><span class="ci-icon">✉</span> <a href="mailto:rpurushottam21@gmail.com">rpurushottam21@gmail.com</a></div>
+          <div class="contact-item"><span class="ci-icon">🔗</span> <a href="https://linkedin.com/in/purushottam-rathod21" target="_blank">linkedin.com/in/purushottam-rathod21</a></div>
+          <div class="contact-item"><span class="ci-icon">📍</span> Bangalore, India &nbsp;|&nbsp; Open to Relocation</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="highlight-box">
+          <p>"Most vehicles today are computers on wheels. The attack surface isn't a dashboard — it's every
+          CAN frame, every OTA update path, every diagnostic session. My job is to find those seams before
+          adversaries do, and close them with the right controls mapped to the right requirements."</p>
+          <div class="quote-attr">— Purushottam Rathod, Automotive Cybersecurity Engineer</div>
+        </div>
+
+        <div class="achievement-strip" style="margin-top:1.5rem;">
+          <div class="ach-item"><span class="ach-icon">🏆</span> Spot Award — On-Time Delivery Q4 2025</div>
+          <div class="ach-item"><span class="ach-icon">⭐</span> CSAT 4.6 / 5 — Tier 1 OEM Customer</div>
+          <div class="ach-item"><span class="ach-icon">🤖</span> Built GenAI TARA Automation Framework</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-label">// 02</span>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-company">L&T Technology Services</div>
+        <div class="exp-period">Aug 2023 — Present</div>
+        <div class="exp-loc">Bangalore, India</div>
+      </div>
+      <div>
+        <div class="exp-role">Automotive Cybersecurity Engineer</div>
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1rem;">
+          End-to-end cybersecurity engineering across vehicle ECUs — from threat analysis and compliance to
+          bootloader security and AI-driven automation.
+        </p>
+
+        <div class="project-tabs">
+          <div class="tab-btns">
+            <button class="tab-btn active" onclick="switchTab(this,'tab-p1')">Cabinet Control System</button>
+            <button class="tab-btn" onclick="switchTab(this,'tab-p2')">eCall / TCU TARA</button>
+            <button class="tab-btn" onclick="switchTab(this,'tab-p3')">CR Management</button>
+            <button class="tab-btn" onclick="switchTab(this,'tab-p4')">AI & Fuzzing</button>
+          </div>
+
+          <div id="tab-p1" class="tab-panel active">
+            <ul>
+              <li>Executed <strong>end-to-end TARA</strong> per ISO/SAE 21434 Clause 9 & 15 for Cabinet Control System in Construction & Mining Machines — asset identification through risk treatment definition.</li>
+              <li>Identified <strong>13–15 threat scenarios</strong> across critical assets; derived cybersecurity requirements directly mapped to risk treatment decisions.</li>
+              <li>Translated TARA outputs into <strong>Cybersecurity Goals and Security Requirements</strong> with full traceability across the secure development lifecycle.</li>
+              <li>Developed cybersecurity system architecture and block diagrams to support system and requirement derivation.</li>
+              <li>Achieved <strong>CSAT score of 4.6 / 5</strong> from Tier 1 automotive customer over an 8-month engagement.</li>
+              <li>Hands-on with <strong>AUTOSAR-based ECU</strong> secure boot validation, secure flashing, and BSW module configuration (vHSM DEM, DCM) using Davinci Configurator.</li>
+              <li>Proficient in <strong>CAN / CANFD</strong> communication and debugging via CANalyzer and JTAG.</li>
+            </ul>
+          </div>
+
+          <div id="tab-p2" class="tab-panel">
+            <ul>
+              <li>Performed comprehensive <strong>TARA for a Telematics Control Unit (eCall system)</strong> per ISO/SAE 21434 — 12–14 threat scenarios across V2N communication and emergency call pathways.</li>
+              <li>Conducted detailed threat modelling across <strong>vehicle-to-network communication</strong>, mapping attack vectors to system components.</li>
+              <li>Applied <strong>ETAS cybersecurity tools</strong> to compile and validate TARA-derived requirements, ensuring ISO/SAE 21434 compliance while surfacing gaps in automated validation workflows.</li>
+            </ul>
+          </div>
+
+          <div id="tab-p3" class="tab-panel">
+            <ul>
+              <li>Lead cybersecurity impact analysis for <strong>24 software change requests</strong> on a TCU, serving as primary cybersecurity reviewer in a 2-member team.</li>
+              <li>Applied <strong>ARM TrustZone and Hardware Trust Anchor (HTA)</strong> concepts during CR security reviews to validate root-of-trust integrity through every software update.</li>
+              <li>Conducted <strong>DLT log analysis</strong> to diagnose cybersecurity issues introduced via CRs and support root cause investigation.</li>
+              <li>Maintained traceability and change records in <strong>IBM DOORS</strong> — all CR-related impacts documented against ISO/SAE 21434.</li>
+              <li>Executed <strong>Non-Regression Testing (NRT)</strong> after each cybersecurity-related update to ensure zero regression on security-critical behaviour.</li>
+              <li>Performed <strong>CVE analysis</strong> for open-source modules including OpenSSL and TLSv1.2.</li>
+            </ul>
+          </div>
+
+          <div id="tab-p4" class="tab-panel">
+            <ul>
+              <li>Developed a <strong>GenAI-based TARA automation framework</strong> reducing delivery time by 70–80% per project cycle.</li>
+              <li>Executed <strong>fuzz testing and vulnerability analysis</strong> using ETAS tools — ~10 malformed input scenarios per session to stress-test ECU input handling.</li>
+              <li>Performed <strong>CAN bus penetration testing</strong> including replay attacks, ID spoofing, and traffic injection on simulated automotive networks.</li>
+              <li>Familiar with <strong>GitHub, CI/CD pipelines</strong>, and cross-functional delivery workflows aligned with ISO/SAE 21434.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-label">// 03</span>
+      <h2>Skills & Tools</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-title">🔐 Cybersecurity</div>
+        <div class="skill-tags">
+          <span class="tag">TARA</span>
+          <span class="tag">ISO/SAE 21434</span>
+          <span class="tag">UNECE R155/R156</span>
+          <span class="tag">Threat Modelling</span>
+          <span class="tag">Secure Boot</span>
+          <span class="tag">Secure Flashing</span>
+          <span class="tag">HSM</span>
+          <span class="tag">ARM TrustZone</span>
+          <span class="tag">SecOC</span>
+          <span class="tag">Vuln Analysis</span>
+          <span class="tag">CVE Analysis</span>
+          <span class="tag">Fuzz Testing</span>
+          <span class="tag">Pen Testing</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title">🚗 Automotive Protocols</div>
+        <div class="skill-tags">
+          <span class="tag">CAN</span>
+          <span class="tag">CANFD</span>
+          <span class="tag">UDS</span>
+          <span class="tag">Automotive Ethernet</span>
+          <span class="tag">I2C</span>
+          <span class="tag">SPI</span>
+          <span class="tag">UART</span>
+          <span class="tag">JTAG</span>
+          <span class="tag">LIN</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title">💻 Programming</div>
+        <div class="skill-tags">
+          <span class="tag">C</span>
+          <span class="tag">Embedded C</span>
+          <span class="tag">C++</span>
+          <span class="tag">Python</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title">🤖 AI / ML</div>
+        <div class="skill-tags">
+          <span class="tag">GenAI Framework</span>
+          <span class="tag">ML Anomaly Detection</span>
+          <span class="tag">DoS Detection</span>
+          <span class="tag">TARA Automation</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title">🛠 Tools & Platforms</div>
+        <div class="skill-tags">
+          <span class="tag">CANalyzer</span>
+          <span class="tag">Davinci Configurator</span>
+          <span class="tag">ETAS Cybersec Tools</span>
+          <span class="tag">IBM DOORS</span>
+          <span class="tag">JIRA</span>
+          <span class="tag">AUTOSAR</span>
+          <span class="tag">Virtual CAN Bus</span>
+          <span class="tag">Renessa Linux</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title">📋 Standards & Process</div>
+        <div class="skill-tags">
+          <span class="tag">ISO/SAE 21434</span>
+          <span class="tag">UNECE R155</span>
+          <span class="tag">UNECE R156</span>
+          <span class="tag">AIS 189/190</span>
+          <span class="tag">ASPICE</span>
+          <span class="tag">SDLC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-label">// 04</span>
+      <h2>Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🛡</div>
+        <div>
+          <div class="cert-name">CompTIA Security+</div>
+          <div class="cert-org">Security Goals & Controls · Identity & Access Management</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">☁</div>
+        <div>
+          <div class="cert-name">AWS Security Essentials</div>
+          <div class="cert-org">AWS Partner Cast — Security on AWS (Technical)</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🔧</div>
+        <div>
+          <div class="cert-name">Embedded Systems Training</div>
+          <div class="cert-org">Vector India Pvt Ltd — 8-Month Professional Program</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <span class="section-label">// 05</span>
+      <h2>Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-timeline">
+      <div class="edu-item reveal">
+        <div class="edu-year">2018 – 2022</div>
+        <div>
+          <div class="edu-degree">B.Tech — Electrical & Electronics Engineering</div>
+          <div class="edu-school">Sharnbasva University</div>
+          <span class="edu-score">CGPA 8.83</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-year">2017 – 2018</div>
+        <div>
+          <div class="edu-degree">HSC (Class XII) — Science</div>
+          <div class="edu-school">Sharnbasveshwar Res. Comp. PU College of Science</div>
+          <span class="edu-score">84%</span>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-year">2015 – 2016</div>
+        <div>
+          <div class="edu-degree">SSC (Class X)</div>
+          <div class="edu-school">Chandrakant Patil Public School</div>
+          <span class="edu-score">91.36%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Purushottam Rathod · Automotive Cybersecurity Engineer · Bangalore, India</div>
+  <div class="footer-links" style="margin-top:0.75rem;">
+    <a href="mailto:rpurushottam21@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/purushottam-rathod21" target="_blank">LinkedIn</a>
+    <a href="tel:+917795742702">+91 7795742702</a>
+  </div>
+  <p style="margin-top:1.5rem; font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">
+    © 2025 Purushottam Rathod. Built to showcase. Not for reproduction.
+  </p>
+</footer>
+
+<script>
+  /* Tab switcher */
+  function switchTab(btn, panelId) {
+    const container = btn.closest('.project-tabs');
+    container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  /* Scroll reveal */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Cursor glow */
+  const orb = document.getElementById('orb');
+  document.addEventListener('mousemove', e => {
+    orb.style.left = e.clientX + 'px';
+    orb.style.top  = e.clientY + 'px';
+  });
+</script>
+</body>
+</html>
